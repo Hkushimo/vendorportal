@@ -10,6 +10,7 @@ const vendorName = document.querySelector("#vendor-name");
 const vendorAlias = document.querySelector("#vendor-alias");
 const tables = document.querySelector("#tables");
 const wifiCodes = document.querySelector("#wifi-codes");
+const eventLink = document.querySelector("#event-link");
 
 function splitList(value) {
   return String(value || "")
@@ -38,6 +39,7 @@ function rowsFromGoogleTable(table) {
 function vendorsFromRows(rows) {
   const [headers, ...dataRows] = rows;
   const headerMap = new Map(headers.map((header, index) => [normalizeHeader(header), index]));
+  const eventDetailsUrl = rows[1]?.[6] || "";
 
   return dataRows
     .map((row) => ({
@@ -45,7 +47,8 @@ function vendorsFromRows(rows) {
       alias: row[headerMap.get("alias")] || "",
       email: row[headerMap.get("email")] || "",
       tables: row[headerMap.get("tables")] || "",
-      wifiCodes: row[headerMap.get("wifiaccesscodes")] || ""
+      wifiCodes: row[headerMap.get("wifiaccesscodes")] || "",
+      eventLink: eventDetailsUrl
     }))
     .filter((vendor) => vendor.email.trim());
 }
@@ -162,6 +165,8 @@ function showVendor(vendor) {
 
   renderList(tables, splitList(vendor.tables), "chip");
   renderList(wifiCodes, splitList(vendor.wifiCodes), "code");
+  eventLink.href = vendor.eventLink || "#";
+  eventLink.hidden = !vendor.eventLink;
 
   vendorCard.hidden = false;
   setMessage("Vendor found.", "success");

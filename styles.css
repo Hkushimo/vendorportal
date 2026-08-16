@@ -185,6 +185,27 @@ h2 {
   border-left: 1px solid var(--line);
 }
 
+.event-actions {
+  padding: 0 22px 22px;
+}
+
+.event-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--gold);
+  color: #061a33;
+  padding: 0 18px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.event-button:hover {
+  filter: brightness(1.04);
+}
+
 h3 {
   margin-bottom: 14px;
   color: var(--muted);
@@ -210,7 +231,6 @@ h3 {
 }
 
 .code {
-  font-family: "Courier New", Courier, monospace;
   letter-spacing: 0;
 }
 
@@ -242,6 +262,10 @@ h3 {
   button {
     width: 100%;
     text-align: center;
+  }
+
+  .event-button {
+    width: 100%;
   }
 
   .info-grid {
