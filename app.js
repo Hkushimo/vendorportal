@@ -19,7 +19,6 @@ const message = document.querySelector("#message");
 const vendorCard = document.querySelector("#vendor-card");
 const vendorName = document.querySelector("#vendor-name");
 const vendorAlias = document.querySelector("#vendor-alias");
-const vendorEmail = document.querySelector("#vendor-email");
 const tables = document.querySelector("#tables");
 const wifiCodes = document.querySelector("#wifi-codes");
 
@@ -166,8 +165,6 @@ function renderList(container, items, className) {
 function showVendor(vendor) {
   vendorName.textContent = vendor.name;
   vendorAlias.textContent = vendor.alias ? `Alias: ${vendor.alias}` : "";
-  vendorEmail.textContent = vendor.email;
-  vendorEmail.href = `mailto:${vendor.email}`;
 
   renderList(tables, splitList(vendor.tables), "chip");
   renderList(wifiCodes, splitList(vendor.wifiCodes), "code");

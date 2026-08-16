@@ -172,15 +172,6 @@ h2 {
   line-height: 1;
 }
 
-.email-pill {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--text);
-  padding: 10px 12px;
-  text-decoration: none;
-  word-break: break-word;
-}
-
 .info-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -248,8 +239,7 @@ h3 {
     flex-direction: column;
   }
 
-  button,
-  .email-pill {
+  button {
     width: 100%;
     text-align: center;
   }
