@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pokemart Expo Vendor Portal</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="portal" aria-labelledby="portal-title">
+        <div class="brand">
+          <img src="assets/pokemart-expo.png" alt="Pokemart Expo">
+          <div>
+            <p class="eyebrow">Vendor Portal</p>
+            <h1 id="portal-title">Pokemart Expo</h1>
+          </div>
+        </div>
+
+        <form class="lookup" id="lookup-form">
+          <label for="email">Enter your vendor email</label>
+          <div class="lookup-row">
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button type="submit">View Info</button>
+          </div>
+          <p class="hint">Use the email address from your vendor registration.</p>
+        </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <section id="vendor-card" class="vendor-card" hidden>
+          <div class="vendor-header">
+            <div>
+              <p class="eyebrow">Vendor</p>
+              <h2 id="vendor-name"></h2>
+              <p id="vendor-alias" class="alias"></p>
+            </div>
+            <a id="vendor-email" class="email-pill"></a>
+          </div>
+
+          <div class="info-grid">
+            <article>
+              <h3>Table(s)</h3>
+              <div id="tables" class="chip-list"></div>
+            </article>
+            <article>
+              <h3>Wi-Fi Access Code(s)</h3>
+              <div id="wifi-codes" class="code-list"></div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
