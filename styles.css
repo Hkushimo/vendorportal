@@ -203,6 +203,10 @@ h2 {
   text-decoration: none;
 }
 
+.event-button[hidden] {
+  display: none;
+}
+
 .event-button:hover {
   background: rgba(20, 58, 103, 0.72);
   border-color: rgba(90, 214, 255, 0.78);

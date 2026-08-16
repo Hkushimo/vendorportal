@@ -177,6 +177,7 @@ form.addEventListener("submit", async (event) => {
 
   setMessage("Checking the vendor list...", "success");
   vendorCard.hidden = true;
+  eventLink.hidden = true;
 
   let loadedVendors = [];
   try {
@@ -192,6 +193,7 @@ form.addEventListener("submit", async (event) => {
   const vendor = loadedVendors.find((item) => normalizeEmail(item.email) === requestedEmail);
   if (!vendor) {
     vendorCard.hidden = true;
+    eventLink.hidden = true;
     setMessage("No vendor info found for that email. Check the spelling and try again. If you just edited the sheet, refresh this page.");
     return;
   }
