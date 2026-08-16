@@ -1,17 +1,6 @@
 const sheetJsonUrl = "https://docs.google.com/spreadsheets/d/1Wl5Ta7PvSiAaX8VZ9N5Fu2IPd2RBCS3yrOCGYUegzE8/gviz/tq?tqx=out:json&gid=0";
-const fallbackVendors = [
-  {
-    name: "Hakeem Kushimo",
-    alias: "Keem",
-    email: "hkushimo@gmail.com",
-    tables: "265, 266",
-    wifiCodes: "14578-78545, 69545-54128"
-  }
-];
-
-let vendors = [...fallbackVendors];
+let vendors = [];
 let vendorsLoaded = false;
-let vendorLoadPromise;
 
 const form = document.querySelector("#lookup-form");
 const emailInput = document.querySelector("#email");
@@ -61,11 +50,12 @@ function vendorsFromRows(rows) {
     .filter((vendor) => vendor.email.trim());
 }
 
-function loadSheetRows() {
+function loadSheetRows(timeoutMs = 10000) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     const previousGoogle = window.google;
     const previousSetResponse = window.google?.visualization?.Query?.setResponse;
+    let settled = false;
 
     window.google = window.google || {};
     window.google.visualization = window.google.visualization || {};
@@ -85,11 +75,19 @@ function loadSheetRows() {
     };
 
     const timeoutId = window.setTimeout(() => {
+      if (settled) {
+        return;
+      }
+      settled = true;
       cleanup();
       reject(new Error("Sheet request timed out"));
-    }, 10000);
+    }, timeoutMs);
 
     window.google.visualization.Query.setResponse = (response) => {
+      if (settled) {
+        return;
+      }
+      settled = true;
       cleanup();
 
       if (response?.status !== "ok") {
@@ -101,6 +99,10 @@ function loadSheetRows() {
     };
 
     script.onerror = () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
       cleanup();
       reject(new Error("Sheet request failed"));
     };
@@ -114,24 +116,16 @@ async function loadVendors() {
     return vendors;
   }
 
-  if (!vendorLoadPromise) {
-    vendorLoadPromise = loadSheetRows()
-      .then((rows) => {
-        const loadedVendors = vendorsFromRows(rows);
-        if (loadedVendors.length) {
-          vendors = loadedVendors;
-        }
-        vendorsLoaded = true;
-        return vendors;
-      })
-      .catch((error) => {
-        vendorsLoaded = true;
-        console.error(error);
-        return vendors;
-      });
+  const rows = await loadSheetRows();
+  const loadedVendors = vendorsFromRows(rows);
+
+  if (!loadedVendors.length) {
+    throw new Error("No vendor rows were found in the sheet");
   }
 
-  return vendorLoadPromise;
+  vendors = loadedVendors;
+  vendorsLoaded = true;
+  return vendors;
 }
 
 function normalizeEmail(value) {
@@ -179,10 +173,18 @@ form.addEventListener("submit", async (event) => {
   setMessage("Checking the vendor list...", "success");
   vendorCard.hidden = true;
 
-  const loadedVendors = await loadVendors();
+  let loadedVendors = [];
+  try {
+    loadedVendors = await loadVendors();
+  } catch (error) {
+    console.error(error);
+    vendorsLoaded = false;
+    setMessage("Could not load the vendor list from Google Sheets. Refresh the page and try again.");
+    return;
+  }
+
   const requestedEmail = normalizeEmail(emailInput.value);
   const vendor = loadedVendors.find((item) => normalizeEmail(item.email) === requestedEmail);
-
   if (!vendor) {
     vendorCard.hidden = true;
     setMessage("No vendor info found for that email. Check the spelling and try again. If you just edited the sheet, refresh this page.");
@@ -191,5 +193,3 @@ form.addEventListener("submit", async (event) => {
 
   showVendor(vendor);
 });
-
-loadVendors();
