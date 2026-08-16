@@ -186,7 +186,7 @@ h2 {
 }
 
 .event-actions {
-  padding: 0 22px 22px;
+  margin-top: 14px;
 }
 
 .event-button {
@@ -194,16 +194,18 @@ h2 {
   min-height: 48px;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(90, 214, 255, 0.5);
   border-radius: 8px;
-  background: var(--gold);
-  color: #061a33;
+  background: rgba(20, 58, 103, 0.42);
+  color: #d9f5ff;
   padding: 0 18px;
   font-weight: 800;
   text-decoration: none;
 }
 
 .event-button:hover {
-  filter: brightness(1.04);
+  background: rgba(20, 58, 103, 0.72);
+  border-color: rgba(90, 214, 255, 0.78);
 }
 
 h3 {
