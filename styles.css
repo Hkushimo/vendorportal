@@ -149,15 +149,18 @@ button:hover {
   font-size: 0.95rem;
 }
 
-.hint span {
-  display: block;
+.support-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(119, 190, 255, 0.22);
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-.support-link {
-  margin-top: 8px;
-}
-
-.support-link a {
+.support-line a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -166,14 +169,14 @@ button:hover {
   text-decoration: none;
 }
 
-.support-link img {
+.support-line img {
   width: 28px;
   height: 28px;
   object-fit: contain;
   flex: 0 0 auto;
 }
 
-.support-link a:hover {
+.support-line a:hover {
   color: #ffffff;
 }
 
@@ -316,6 +319,11 @@ h3 {
 
   .event-button {
     width: 100%;
+  }
+
+  .support-line {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .info-grid {
