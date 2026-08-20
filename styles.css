@@ -226,6 +226,41 @@ h2 {
   border-color: rgba(86, 220, 255, 0.82);
 }
 
+.support-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(119, 190, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(3, 15, 31, 0.38);
+}
+
+.support-panel img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.support-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.support-panel a {
+  margin-left: auto;
+  color: var(--cyan-soft);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.support-panel a:hover {
+  color: #ffffff;
+}
+
 h3 {
   margin-bottom: 14px;
   color: var(--muted);
@@ -288,6 +323,15 @@ h3 {
 
   .event-button {
     width: 100%;
+  }
+
+  .support-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .support-panel a {
+    margin-left: 0;
   }
 
   .info-grid {
