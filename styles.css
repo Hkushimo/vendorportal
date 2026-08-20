@@ -149,6 +149,34 @@ button:hover {
   font-size: 0.95rem;
 }
 
+.hint span {
+  display: block;
+}
+
+.support-link {
+  margin-top: 8px;
+}
+
+.support-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan-soft);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.support-link img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.support-link a:hover {
+  color: #ffffff;
+}
+
 .message {
   min-height: 22px;
   margin: 18px 0 0;
@@ -226,44 +254,6 @@ h2 {
   border-color: rgba(86, 220, 255, 0.82);
 }
 
-.support-panel {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 14px;
-  border: 1px solid rgba(119, 190, 255, 0.24);
-  border-radius: 8px;
-  background: rgba(3, 15, 31, 0.38);
-}
-
-.support-panel p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.support-panel a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-  color: var(--cyan-soft);
-  font-weight: 800;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.support-panel img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  flex: 0 0 auto;
-}
-
-.support-panel a:hover {
-  color: #ffffff;
-}
-
 h3 {
   margin-bottom: 14px;
   color: var(--muted);
@@ -326,15 +316,6 @@ h3 {
 
   .event-button {
     width: 100%;
-  }
-
-  .support-panel {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .support-panel a {
-    margin-left: 0;
   }
 
   .info-grid {
