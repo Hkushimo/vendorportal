@@ -139,22 +139,16 @@ button:hover {
   filter: brightness(1.03) saturate(1.04);
 }
 
-.hint,
 .alias {
   color: var(--muted);
-}
-
-.hint {
-  margin-bottom: 0;
-  font-size: 0.95rem;
 }
 
 .support-line {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 18px;
-  padding-top: 18px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid rgba(119, 190, 255, 0.22);
   color: var(--muted);
   font-size: 0.95rem;
