@@ -164,12 +164,17 @@ button:hover {
   text-decoration: none;
 }
 
-.support-line img {
+.support-icon {
   width: 28px;
   height: 28px;
   object-fit: contain;
   flex: 0 0 auto;
   border-radius: 8px;
+}
+
+.discord-icon {
+  object-fit: cover;
+  object-position: center;
 }
 
 .support-line a:hover {
