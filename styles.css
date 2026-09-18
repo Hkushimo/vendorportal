@@ -289,10 +289,14 @@ h3 {
 }
 
 .wifi-note {
-  margin: 12px 0 0;
-  color: var(--muted);
+  margin: 14px 0 0;
+  border: 1px solid rgba(255, 216, 77, 0.34);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 216, 77, 0.1), rgba(255, 216, 77, 0.045));
+  color: #ffeaa0;
   font-size: 0.92rem;
   line-height: 1.35;
+  padding: 12px 14px;
 }
 
 @media (max-width: 680px) {
