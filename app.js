@@ -43,14 +43,25 @@ function vendorsFromRows(rows) {
   const [headers, ...dataRows] = rows;
   const headerMap = new Map(headers.map((header, index) => [normalizeHeader(header), index]));
   const eventDetailsUrl = rows[1]?.[6] || "";
+  const hasBusinessNameColumn = headerMap.has("businessname");
+  const valueFor = (row, ...headersToTry) => {
+    for (const header of headersToTry) {
+      const index = headerMap.get(header);
+      if (index !== undefined && row[index]) {
+        return row[index];
+      }
+    }
+
+    return "";
+  };
 
   return dataRows
     .map((row) => ({
-      name: row[headerMap.get("name")] || "",
-      alias: row[headerMap.get("alias")] || "",
-      email: row[headerMap.get("email")] || "",
-      tables: row[headerMap.get("tables")] || "",
-      wifiCodes: row[headerMap.get("wifiaccesscodes")] || "",
+      name: valueFor(row, "businessname", "name"),
+      alias: hasBusinessNameColumn ? valueFor(row, "name") : valueFor(row, "alias"),
+      email: valueFor(row, "email"),
+      tables: valueFor(row, "tables"),
+      wifiCodes: valueFor(row, "wifiaccesscodes"),
       eventLink: eventDetailsUrl
     }))
     .filter((vendor) => vendor.email.trim());
