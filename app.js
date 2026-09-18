@@ -138,6 +138,38 @@ function normalizeEmail(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function formatDisplayName(value) {
+  const acronymWords = new Map([
+    ["llc", "LLC"],
+    ["tcg", "TCG"],
+    ["utb", "UTB"],
+    ["vpr", "VPR"],
+    ["r&r", "R&R"],
+    ["j&j", "J&J"],
+    ["t&m", "T&M"]
+  ]);
+
+  return String(value || "")
+    .replace(/[_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ")
+    .map((word) => {
+      const lookup = word.toLowerCase().replace(/^[^a-z0-9&]+|[^a-z0-9&]+$/g, "");
+      if (acronymWords.has(lookup)) {
+        return word.replace(new RegExp(lookup, "i"), acronymWords.get(lookup));
+      }
+
+      const hasMixedCase = /[a-z]/.test(word) && /[A-Z]/.test(word);
+      if (hasMixedCase) {
+        return word;
+      }
+
+      return word.toLowerCase().replace(/(^|[-/'.&])([a-z])/g, (_, prefix, letter) => `${prefix}${letter.toUpperCase()}`);
+    })
+    .join(" ");
+}
+
 function setMessage(text, type = "error") {
   message.textContent = text;
   message.className = `message ${type === "success" ? "success" : ""}`;
@@ -163,8 +195,8 @@ function renderList(container, items, className) {
 }
 
 function showVendor(vendor) {
-  vendorName.textContent = vendor.name;
-  vendorAlias.textContent = vendor.alias ? `Alias: ${vendor.alias}` : "";
+  vendorName.textContent = formatDisplayName(vendor.name);
+  vendorAlias.textContent = vendor.alias ? `Name: ${formatDisplayName(vendor.alias)}` : "";
 
   renderList(tables, splitList(vendor.tables), "chip");
   renderList(wifiCodes, splitList(vendor.wifiCodes), "code");
