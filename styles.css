@@ -278,8 +278,9 @@ h3 {
 }
 
 .chip {
-  width: 4.25rem;
+  min-width: 4.25rem;
   text-align: center;
+  white-space: nowrap;
 }
 
 .code {
