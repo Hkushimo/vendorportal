@@ -42,7 +42,6 @@ function rowsFromGoogleTable(table) {
 function vendorsFromRows(rows) {
   const [headers, ...dataRows] = rows;
   const headerMap = new Map(headers.map((header, index) => [normalizeHeader(header), index]));
-  const eventDetailsUrl = rows[1]?.[6] || "";
   const hasBusinessNameColumn = headerMap.has("businessname");
   const valueFor = (row, ...headersToTry) => {
     for (const header of headersToTry) {
@@ -54,6 +53,7 @@ function vendorsFromRows(rows) {
 
     return "";
   };
+  const eventDetailsUrl = dataRows.map((row) => valueFor(row, "eventlink")).find(Boolean) || "";
 
   return dataRows
     .map((row) => ({
