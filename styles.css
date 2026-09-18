@@ -147,6 +147,7 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid rgba(119, 190, 255, 0.22);
@@ -168,22 +169,7 @@ button:hover {
   height: 28px;
   object-fit: contain;
   flex: 0 0 auto;
-}
-
-.resource-icon {
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(255, 216, 77, 0.42);
   border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, rgba(255, 216, 77, 0.18), rgba(242, 185, 31, 0.08));
-  color: #ffe875;
-  flex: 0 0 auto;
-  font-size: 0.62rem;
-  font-weight: 900;
-  letter-spacing: 0;
 }
 
 .support-line a:hover {
@@ -317,8 +303,11 @@ h3 {
   }
 
   .support-line {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+  }
+
+  .support-line > span {
+    flex-basis: 100%;
   }
 
   .info-grid {
