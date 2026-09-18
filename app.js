@@ -1,4 +1,4 @@
-const sheetJsonUrl = "https://docs.google.com/spreadsheets/d/1Wl5Ta7PvSiAaX8VZ9N5Fu2IPd2RBCS3yrOCGYUegzE8/gviz/tq?tqx=out:json&gid=0";
+const sheetJsonUrl = "https://docs.google.com/spreadsheets/d/1Wl5Ta7PvSiAaX8VZ9N5Fu2IPd2RBCS3yrOCGYUegzE8/gviz/tq?tqx=out:json&gid=0&headers=1";
 let vendors = [];
 let vendorsLoaded = false;
 
@@ -31,9 +31,12 @@ function cellValue(row, index) {
 }
 
 function rowsFromGoogleTable(table) {
-  return (table?.rows || [])
+  const headers = (table?.cols || []).map((column) => String(column.label || ""));
+  const rows = (table?.rows || [])
     .map((row) => (row.c || []).map((_, index) => cellValue(row, index)))
     .filter((row) => row.some((cell) => cell.trim()));
+
+  return [headers, ...rows];
 }
 
 function vendorsFromRows(rows) {
