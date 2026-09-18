@@ -53,7 +53,7 @@ function vendorsFromRows(rows) {
 
     return "";
   };
-  const eventDetailsUrl = dataRows.map((row) => valueFor(row, "eventlink")).find(Boolean) || "";
+  const eventDetailsUrl = valueFor(dataRows[0] || [], "eventlink");
 
   return dataRows
     .map((row) => ({
