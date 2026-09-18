@@ -211,11 +211,24 @@ function showVendor(vendor) {
 
   renderList(tables, splitList(vendor.tables), "chip");
   renderList(wifiCodes, splitList(vendor.wifiCodes), "code");
-  eventLink.href = vendor.eventLink || "#";
-  eventLink.hidden = !vendor.eventLink;
+  if (vendor.eventLink) {
+    eventLink.href = vendor.eventLink;
+  }
 
   vendorCard.hidden = false;
   setMessage("Vendor found.", "success");
+}
+
+async function initializeEventLink() {
+  try {
+    const loadedVendors = await loadVendors();
+    const eventDetailsUrl = loadedVendors.find((vendor) => vendor.eventLink)?.eventLink;
+    if (eventDetailsUrl) {
+      eventLink.href = eventDetailsUrl;
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 form.addEventListener("submit", async (event) => {
@@ -223,7 +236,6 @@ form.addEventListener("submit", async (event) => {
 
   setMessage("Checking the vendor list...", "success");
   vendorCard.hidden = true;
-  eventLink.hidden = true;
 
   let loadedVendors = [];
   try {
@@ -239,10 +251,11 @@ form.addEventListener("submit", async (event) => {
   const vendor = loadedVendors.find((item) => normalizeEmail(item.email) === requestedEmail);
   if (!vendor) {
     vendorCard.hidden = true;
-    eventLink.hidden = true;
     setMessage("No vendor info found for that email. Check the spelling and try again. If you just edited the sheet, refresh this page.");
     return;
   }
 
   showVendor(vendor);
 });
+
+initializeEventLink();
