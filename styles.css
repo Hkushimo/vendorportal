@@ -232,6 +232,23 @@ h3 {
   gap: 10px;
 }
 
+.wifi-network {
+  display: inline-flex;
+  gap: 8px;
+  align-items: baseline;
+  margin: -2px 0 14px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.wifi-network span {
+  color: var(--cyan);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .chip,
 .code {
   border-radius: 8px;
